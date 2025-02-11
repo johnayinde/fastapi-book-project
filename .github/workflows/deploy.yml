@@ -21,10 +21,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            mkdir -p /home/${{ secrets.SSH_USER }}/app
-            cd /home/${{ secrets.SSH_USER }}/app
-            docker compose down || true
-            rm -rf fastapi-book-project
-            git clone https://github.com/johnayinde/fastapi-book-project.git
-            cd fastapi-book-project
-            docker compose up --build -d
+            cd ~/fastapi-book-project
+            git pull origin main
+            docker-compose down
+            docker-compose up -d --build
